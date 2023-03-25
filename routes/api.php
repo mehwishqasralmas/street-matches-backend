@@ -21,6 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function() {
 
-    Route::post('/login', [User::class, 'login']);
+    Route::post('/login', [User::class, 'logIn']);
+    Route::post('/signup', [User::class, 'signUp']);
+    Route::post('/forget-password', [User::class, 'forgetPassword']);
+    Route::post('/reset-password', [User::class, 'resetPassword']);
+
     Route::get('/user', [User::class, 'user'])->middleware('auth:sanctum');
 });
