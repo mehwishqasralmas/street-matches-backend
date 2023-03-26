@@ -15,7 +15,7 @@ class CreatePlayersTable extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
 
             $table->enum('dominate_foot', ['LEFT', 'RIGHT']);
@@ -29,8 +29,10 @@ class CreatePlayersTable extends Migration
             $table->double('location_long');
             $table->double('location_lat');
             $table->unsignedBigInteger('img_id')->nullable();
+            $table->unsignedBigInteger('creator_user_id');
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('creator_user_id')->references('id')->on('users');
             $table->foreign('img_id')->references('id')->on('images');
         });
     }

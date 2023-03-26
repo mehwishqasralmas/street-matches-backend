@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User;
+use App\Http\Controllers\Player;
+use App\Http\Controllers\Team;
+use App\Http\Controllers\Resources\Image;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +30,27 @@ Route::prefix('auth')->group(function() {
     Route::post('/reset-password', [User::class, 'resetPassword']);
 
     Route::get('/user', [User::class, 'user'])->middleware('auth:sanctum');
+});
+
+Route::prefix('resource')->group(function(){
+  Route::post('/img/upload', [Image::class, 'upload']);
+});
+
+
+Route::prefix('player')->middleware('auth:sanctum')->group(function() {
+  Route::get('/list', [Player::class, 'index']);
+  Route::get('/{player}/teams', [Player::class, 'getTeams']);
+  Route::post('/guest', [Player::class, 'add']);
+  Route::put('/{player}', [Player::class, 'update']);
+  Route::put('/{player}/team/{team}', [Player::class, 'assignToTeam']);
+  Route::delete('/{player}/team/{team}', [Player::class, 'unassignFromTeam']);
+  Route::delete('/{player}', [Player::class, 'delete']);
+});
+
+Route::prefix('team')->middleware('auth:sanctum')->group(function() {
+  Route::get('/list', [Team::class, 'index']);
+  Route::get('/{team}/players', [Team::class, 'getPlayers']);
+  Route::post('/', [Team::class, 'add']);
+  Route::put('/{team}', [Team::class, 'update']);
+  Route::delete('/{team}', [Team::class, 'delete']);
 });

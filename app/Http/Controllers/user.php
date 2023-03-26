@@ -4,24 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User as UserModel;
+use App\Models\image as ImageModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetPassword as ForgetPasswordMail;
-use TheSeer\Tokenizer\Token;
+use App\Http\Controllers\Player as PlayerController;
 
 class User extends Controller
 {
-
   public function signUp(Request $req)
   {
     $req->validate([
       'first_name' => 'required',
       'last_name' => 'required',
-      'email' => 'required|email|unique',
-      'phone_number' => 'required|unique',
+      'email' => 'required|email|unique:users',
+      'phone_number' => 'required|unique:users',
       'password' => 'required',
       'birthdate' => 'required',
       'type' => 'required',
@@ -39,8 +39,12 @@ class User extends Controller
     $newUser->type = $req->type;
     $newUser->location_long = $req->location_long;
     $newUser->location_lat = $req->location_lat;
+    $newUser->img_id = ImageModel::getImgIdByUrl($req->img_url);
 
     if ($newUser->save()) {
+      if($req->type == 'PLAYER') {
+        (new PlayerController())->add($req, $newUser-> id, $newUser-> id);
+      }
       return $this->logIn($req);
     }
 
@@ -87,7 +91,7 @@ class User extends Controller
       'email' => $req->email,
       'token' => password_hash($token, null)
     ]);
-    return $token;
+
     Mail::to($req->email)->send(new ForgetPasswordMail($user, $token));
     return response($token, 200);
   }
