@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Player;
 use App\Http\Controllers\Team;
+use App\Http\Controllers\Match;
+use App\Http\Controllers\Lineup;
+use App\Http\Controllers\Event;
+use App\Http\Controllers\EventRequest;
 use App\Http\Controllers\Resources\Image;
 
 /*
@@ -53,4 +57,27 @@ Route::prefix('team')->middleware('auth:sanctum')->group(function() {
   Route::post('/', [Team::class, 'add']);
   Route::put('/{team}', [Team::class, 'update']);
   Route::delete('/{team}', [Team::class, 'delete']);
+});
+
+Route::prefix('match')->middleware('auth:sanctum')->group(function() {
+  Route::get('/list', [Match::class, 'index']);
+  Route::post('/', [Match::class, 'add']);
+  Route::put('/{match}', [Match::class, 'update']);
+  Route::delete('/{match}', [Match::class, 'delete']);
+});
+
+Route::prefix('lineup')->middleware('auth:sanctum')->group(function() {
+  Route::get('/list/match/{match}', [Lineup::class, 'index']);
+  Route::post('/', [Lineup::class, 'add']);
+  Route::delete('/match/{match}/team/{team?}', [Lineup::class, 'delete']);
+});
+
+
+Route::prefix('event')->middleware('auth:sanctum')->group(function() {
+  Route::get('/list', [Event::class, 'index']);
+  Route::get('/{event}/request/list', [EventRequest::class, 'index']);
+  Route::post('/', [Event::class, 'add']);
+  Route::post('/request', [EventRequest::class, 'add']);
+  Route::delete('/request/{eventReq}', [EventRequest::class, 'delete']);
+
 });

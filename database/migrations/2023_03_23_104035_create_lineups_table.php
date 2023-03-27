@@ -18,7 +18,10 @@ class CreateLineupsTable extends Migration
             $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('match_id');
             $table->unsignedBigInteger('player_id');
-            $table->string('position');
+            $table->enum(
+              'position',
+              ['GK', 'DEF_CB', 'DEF_SW', 'DEF_FB', 'MID_CM', 'MID_DM', 'MID_ATK', 'FW_SS', 'FW_CF', 'FW_W']
+            );
             $table->integer('shirt_number')->nullable();
 
             $table->timestamps();
