@@ -49,6 +49,9 @@ Route::prefix('player')->middleware('auth:sanctum')->group(function() {
   Route::put('/{player}/team/{team}', [Player::class, 'assignToTeam']);
   Route::delete('/{player}/team/{team}', [Player::class, 'unassignFromTeam']);
   Route::delete('/{player}', [Player::class, 'delete']);
+
+  Route::get('/positions', [Player::class, 'getPlayerPostions'])
+    ->withoutMiddleware('auth:sanctum');
 });
 
 Route::prefix('team')->middleware('auth:sanctum')->group(function() {
