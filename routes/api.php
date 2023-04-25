@@ -81,6 +81,15 @@ Route::prefix('event')->middleware('auth:sanctum')->group(function() {
   Route::get('/{event}/request/list', [EventRequest::class, 'index']);
   Route::post('/', [Event::class, 'add']);
   Route::post('/request', [EventRequest::class, 'add']);
+  Route::delete('/{event}', [Event::class, 'delete']);
   Route::delete('/request/{eventReq}', [EventRequest::class, 'delete']);
+});
 
+Route::prefix('home')->middleware('auth:sanctum')->group(function() {
+  Route::get('/data', function () {
+    $events = (new Event())->index();
+    $matches = (new Match())->index();
+
+    return ["matches" => $matches, "events" => $events];
+  });
 });

@@ -19,7 +19,7 @@ class Event extends Controller
     $events = EventModel::all();
 
     foreach ($events as &$event) {
-      if($event->type = static::$TYPES['SEARCH_PLAYERS']) {
+      if($event->type == static::$TYPES['SEARCH_PLAYERS']) {
         $positions = explode(',', $event['players_positions']);
         $counts = explode(',', $event['players_cnts']);
         $temp = ['positions' => []];
