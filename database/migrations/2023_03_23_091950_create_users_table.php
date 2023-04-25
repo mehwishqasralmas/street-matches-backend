@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
             $table->string('password');
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->unsignedBigInteger('img_id')->nullable();
             $table->enum('type', ['PLAYER', 'TEAM_MANAGER', 'ADMIN'])->default('PLAYER');
             $table->double('location_long');
@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
+            
             $table->foreign('img_id')->references('id')->on('images');
         });
     }

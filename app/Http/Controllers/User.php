@@ -23,8 +23,6 @@ class User extends Controller
       'email' => 'required|email|unique:users',
       'phone_number' => 'required|unique:users',
       'password' => 'required',
-      'birthdate' => 'required',
-      'type' => 'required',
       'location_long' => 'required',
       'location_lat' => 'required'
     ]);
@@ -43,7 +41,7 @@ class User extends Controller
 
     if ($newUser->save()) {
       if($req->type == 'PLAYER') {
-        (new PlayerController())->add($req, $newUser-> id, $newUser-> id);
+        (new PlayerController())->add($req, $newUser->id, $newUser->id);
       }
       return $this->logIn($req);
     }

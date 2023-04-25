@@ -21,11 +21,15 @@ class CreatePlayersTable extends Migration
             $table->enum('dominate_foot', ['LEFT', 'RIGHT']);
             $table->double('weight');
             $table->double('height');
-            $table->integer('year_active');
+            $table->enum (
+                'position',
+                ['GK', 'DEF_CB', 'DEF_SW', 'DEF_FB', 'MID_CM', 'MID_DM', 'MID_ATK', 'FW_SS', 'FW_CF', 'FW_W']
+            );
+            $table->integer('year_active')->nullable();
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->double('location_long');
             $table->double('location_lat');
             $table->unsignedBigInteger('img_id')->nullable();

@@ -18,9 +18,9 @@ class Player extends Controller
         $req->validate([
           'first_name' => 'required',
           'last_name' => 'required',
-          'birthdate' => 'required',
           'location_long' => 'required',
-          'location_lat' => 'required'
+          'location_lat' => 'required',
+          'position' => 'required'
         ]);
 
       $newPlayer = PlayerModel::create([
@@ -32,6 +32,7 @@ class Player extends Controller
         'user_id' => $userId,
         'dominate_foot' => $req->dominate_foot,
         'weight' => $req->weight,
+        'position' => $req->position,
         'height' => $req->height,
         'year_active' => $req->year_active,
         'creator_user_id' => $creatorUserId ?? Auth::user()->id,
