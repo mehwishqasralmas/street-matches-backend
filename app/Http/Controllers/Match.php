@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\match as MatchModel;
 use App\Models\team as TeamModel;
 use Illuminate\Support\Facades\Auth;
+use App\Models\image as ImageModel;
 
 class Match extends Controller
 {
@@ -17,6 +18,9 @@ class Match extends Controller
     foreach ($matches as $match) {
       $homeTeam = TeamModel::find($match->home_team_id);
       $awayTeam = TeamModel::find($match->away_team_id);
+
+      $homeTeam['logo_img_url'] = ImageModel::getImgUrlById($homeTeam['logo_img_id']);
+      $awayTeam['logo_img_url'] = ImageModel::getImgUrlById($awayTeam['logo_img_id']);
 
       $match['home_team'] = $homeTeam;
       $match['away_team'] = $awayTeam;
