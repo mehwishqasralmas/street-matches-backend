@@ -18,6 +18,8 @@ class CreateEventsTable extends Migration
             $table->enum('type', ['SEARCH_PLAYERS', 'SEARCH_TEAM', 'CHALLENGE_TEAM']);
             $table->double('location_long');
             $table->double('location_lat');
+            $table->string('address')->nullable();
+            $table->bigInteger('img_id')->nullable();
             $table->longText('description');
             $table->string('players_positions')->nullable();
             $table->string('players_cnts')->nullable();
@@ -27,6 +29,7 @@ class CreateEventsTable extends Migration
 
             $table->foreign('creator_user_id')->references('id')->on('users');
             $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('img_id')->references('id')->on('images');
         });
     }
 
