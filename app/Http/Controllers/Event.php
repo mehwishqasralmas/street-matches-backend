@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\event as EventModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
+use DB;
 
 class Event extends Controller
 {
@@ -21,10 +22,14 @@ class Event extends Controller
       ->select('events.*',
         'teams.name AS team_name',
         'event_img.url AS event_img_url',
-        'team_img.url AS team_logo_url')
+        'team_img.url AS team_logo_url',
+        DB::raw("CONCAT(first_name, ' ', last_name) AS creator_name"),
+        'user_img.url AS creator_img_url')
+      ->join('users', 'creator_user_id', '=', 'users.id')
       ->leftJoin('teams', 'team_id', '=', 'teams.id')
       ->leftJoin('images AS event_img', 'events.img_id', '=', 'event_img.id')
       ->leftJoin('images AS team_img', 'teams.logo_img_id', '=', 'team_img.id')
+      ->leftJoin('images AS user_img', 'users.img_id', '=', 'user_img.id')
       ->get();
 
     foreach ($events as &$event) {
