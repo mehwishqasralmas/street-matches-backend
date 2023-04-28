@@ -15,7 +15,7 @@ class Team extends Controller
   {
     return TeamModel::query()
       ->select([
-        'teams.id', 'name', 'location_long', 'location_lat',
+        'teams.id', 'name', 'location_long', 'location_lat', 'address',
         'teams.created_at', 'url as logo_img_url'
       ])->leftJoin('images', 'logo_img_id', '=', 'images.id')
       ->get();
@@ -33,6 +33,7 @@ class Team extends Controller
       'name' => $req->name,
       'location_long' => $req->location_long,
       'location_lat' => $req->location_lat,
+      'address' => $req->address,
       'creator_user_id' => $creatorUserId ?? Auth::user()->id,
       'logo_img_id' => ImageModel::getImgIdByUrl($req->logo_img_url)
     ]);

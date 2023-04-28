@@ -19,6 +19,7 @@ class CreateTeamsTable extends Migration
             $table->unsignedBigInteger('logo_img_id')->nullable();
             $table->double('location_long');
             $table->double('location_lat');
+            $table->string('address')->nullable();
             $table->unsignedBigInteger('creator_user_id');
             $table->timestamps();
 

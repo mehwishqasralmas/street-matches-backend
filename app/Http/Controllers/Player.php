@@ -57,7 +57,7 @@ class Player extends Controller
 
   public function getTeams($playerId) {
     return TeamPlayerModel::query()->select([
-      't.id', 'name', 't.location_long', 't.location_lat',
+      't.id', 'name', 't.location_long', 't.location_lat', 't.address',
       't.created_at', 'url as logo_img_url'
     ])->join('teams as t', 'team_id', '=', 't.id')
       ->leftJoin('images', 'logo_img_id', '=', 'images.id')
