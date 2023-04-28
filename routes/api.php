@@ -86,9 +86,9 @@ Route::prefix('event')->middleware('auth:sanctum')->group(function() {
 });
 
 Route::prefix('home')->middleware('auth:sanctum')->group(function() {
-  Route::get('/data', function () {
+  Route::get('/data', function (Request $req) {
     $events = (new Event())->index();
-    $matches = (new Match())->index();
+    $matches = (new Match())->index($req, ">=,0");
 
     return ["matches" => $matches, "events" => $events];
   });

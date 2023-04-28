@@ -11,9 +11,25 @@ use App\Models\image as ImageModel;
 class Match extends Controller
 {
 
-  public function index()
+  public function index(Request $req, $dayOffsetFilter = null)
   {
-    $matches = MatchModel::all();
+
+    $dayOffsetFilter = $dayOffsetFilter ?? $req->query("dayOffsetFilter");
+    $daysOffset = null;
+    $daysOffsetOp = null;
+
+    if(!empty($dayOffsetFilter || $dayOffsetFilter == "0")) {
+      $dayOffsetFilter = explode(",", $dayOffsetFilter);
+      $daysOffsetOp = count($dayOffsetFilter) > 1 ? $dayOffsetFilter[0] : "=";
+      $daysOffset = $dayOffsetFilter[1] ?? $dayOffsetFilter[0];
+    }
+
+    $matches = MatchModel::query()->select();
+    if(!empty($daysOffset) || $daysOffset == "0")
+      $matches = $matches->whereRaw (
+        "DATE(schedule_time) $daysOffsetOp DATE_ADD(CURRENT_DATE(), INTERVAL $daysOffset DAY)"
+      );
+    $matches = $matches->get();
 
     foreach ($matches as $match) {
       $homeTeam = TeamModel::find($match->home_team_id);
