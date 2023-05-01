@@ -33,6 +33,7 @@ class User extends Authenticatable implements PasswordReset
     protected $hidden = [
         'password',
         'remember_token',
+        'img_id'
     ];
 
     /**
@@ -47,5 +48,4 @@ class User extends Authenticatable implements PasswordReset
     public function setPasswordAttribute($value) {
       $this->attributes['password'] = password_hash($value, null);
     }
-
 }

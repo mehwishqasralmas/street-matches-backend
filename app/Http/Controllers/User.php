@@ -60,6 +60,9 @@ class User extends Controller
       $user = Auth::user();
       $token = $user->createToken($user->first_name)->plainTextToken;
       $user->token = $token;
+      $user->img_url = ImageModel::getImgUrlById($user->img_id);
+      $user->player = (new PlayerController())->index($user->id)->first;
+
       return response($user);
     }
 

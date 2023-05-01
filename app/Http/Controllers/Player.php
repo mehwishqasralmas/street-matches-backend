@@ -11,9 +11,17 @@ use function PHPUnit\Framework\isEmpty;
 
 class Player extends Controller
 {
-    public function index() {
-      return PlayerModel::all();
+    public function index($userId = null) {
+      $players = PlayerModel::query()
+        ->select("players.*", "images.url as player_img_url")
+        ->leftJoin("images", "img_id", "=", "images.id");
+
+      if(empty($userId))
+        $players = $players->where("user_id", "=", $userId);
+
+      return $players->get();
     }
+
     public function add(Request $req, $userId = null, $creatorUserId = null) {
         $req->validate([
           'first_name' => 'required',
@@ -29,6 +37,7 @@ class Player extends Controller
         'birthdate' => $req->birthdate,
         'location_long' => $req->location_long,
         'location_lat' => $req->location_lat,
+        'description' => $req->description,
         'user_id' => $userId,
         'dominate_foot' => $req->dominate_foot,
         'weight' => $req->weight,

@@ -11,4 +11,6 @@ class player extends Model
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['img_id'];
+
 }
