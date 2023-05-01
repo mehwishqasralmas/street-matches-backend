@@ -91,18 +91,7 @@ class Player extends Controller
   }
 
   public function getPlayerPostions() {
-      return [
-        ["code" => 'GK', "name"=> "Goalkeeper"],
-        ["code" => 'DEF_CB', "name"=> "Centre-Back Defender"],
-        ["code" => 'DEF_SW', "name"=> "Sweeper Defender"],
-        ["code" => 'DEF_FB', "name"=> "Full-Back Defender"],
-        ["code" => 'MID_CM', "name"=> "Central Midfielder"],
-        ["code" => 'MID_DM', "name"=> "Defensive Midfielder"],
-        ["code" => 'MID_ATK', "name"=> "Attacking Midfielder"],
-        ["code" => 'FW_SS', "name"=> "Second Striker Forward"],
-        ["code" => 'FW_CF', "name"=> "Centre Forward"],
-        ["code" => 'FW_W', "name"=> "Winger Forward"]
-      ];
+      return PlayerModel::$POSTIONS;
   }
 
 }
