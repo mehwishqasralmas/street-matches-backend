@@ -16,7 +16,7 @@ class Player extends Controller
         ->select("players.*", "images.url as player_img_url")
         ->leftJoin("images", "img_id", "=", "images.id");
 
-      if(empty($userId))
+      if(!empty($userId))
         $players = $players->where("user_id", "=", $userId);
 
       return $players->get();
