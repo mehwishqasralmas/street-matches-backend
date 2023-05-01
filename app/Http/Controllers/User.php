@@ -117,4 +117,23 @@ class User extends Controller
     return response(null, $resStatus);
   }
 
+  public function updateInfo(Request $req) {
+    $userFields = $req->only (
+      "first_name", "last_name", "email", "password", "birthdate", "phone_number",
+      "location_long", "location_lat", "address"
+    );
+
+    $playerFields = $req->only (
+      "first_name", "last_name", "birthdate", "phone_number",
+      "location_long", "location_lat", "address", "dominate_foot",
+      "description", "weight", "height", "year_active", "position"
+    );
+
+    $user = Auth::user();
+    $user->updateOrFail($userFields);
+    $player = (new PlayerController())->index($user->id)->get(0);
+    if(!empty($player))
+      $player->updateOrFail($playerFields);
+  }
+
 }

@@ -93,3 +93,7 @@ Route::prefix('home')->middleware('auth:sanctum')->group(function() {
     return ["matches" => $matches, "events" => $events];
   });
 });
+
+Route::prefix('user')->middleware('auth:sanctum')->group(function() {
+  Route::put('/info', [User::class, 'updateInfo']);
+});
