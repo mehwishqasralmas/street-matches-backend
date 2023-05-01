@@ -37,6 +37,7 @@ class Player extends Controller
         'birthdate' => $req->birthdate,
         'location_long' => $req->location_long,
         'location_lat' => $req->location_lat,
+        'address' => $req->address,
         'description' => $req->description,
         'user_id' => $userId,
         'dominate_foot' => $req->dominate_foot,

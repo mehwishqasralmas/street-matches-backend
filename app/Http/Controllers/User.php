@@ -37,6 +37,7 @@ class User extends Controller
     $newUser->type = $req->type;
     $newUser->location_long = $req->location_long;
     $newUser->location_lat = $req->location_lat;
+    $newUser->address = $req->address;
     $newUser->img_id = ImageModel::getImgIdByUrl($req->img_url);
 
     if ($newUser->save()) {

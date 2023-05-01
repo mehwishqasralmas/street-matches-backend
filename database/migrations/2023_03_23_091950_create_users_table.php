@@ -25,10 +25,11 @@ class CreateUsersTable extends Migration
             $table->enum('type', ['PLAYER', 'TEAM_MANAGER', 'ADMIN'])->default('PLAYER');
             $table->double('location_long');
             $table->double('location_lat');
+            $table->string('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            
+
             $table->foreign('img_id')->references('id')->on('images');
         });
     }
