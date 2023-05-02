@@ -132,7 +132,8 @@ class User extends Controller
     );
 
     $user = Auth::user();
-    $user->updateOrFail($userFields);
+    UserModel::query()->whereKey($user->id)->update($userFields);
+    $user = $user->fresh();
     $user->player = (new PlayerController())->index($user->id)->get(0);
     if(!empty($user->player))
       $user->player->updateOrFail($playerFields);
