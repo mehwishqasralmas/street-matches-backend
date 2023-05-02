@@ -75,6 +75,8 @@ class User extends Controller
   {
     if (Auth::check()) {
       $user = Auth::user();
+      $user->img_url = ImageModel::getImgUrlById($user->img_id);
+      $user->player = (new PlayerController())->index($user->id)->get(0);
       return response($user);
     }
 
