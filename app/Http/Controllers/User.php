@@ -133,9 +133,11 @@ class User extends Controller
 
     $user = Auth::user();
     $user->updateOrFail($userFields);
-    $player = (new PlayerController())->index($user->id)->get(0);
-    if(!empty($player))
-      $player->updateOrFail($playerFields);
+    $user->player = (new PlayerController())->index($user->id)->get(0);
+    if(!empty($user->player))
+      $user->player->updateOrFail($playerFields);
+
+    return response($user);
   }
 
 }
