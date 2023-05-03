@@ -27,7 +27,7 @@ class image extends Model
     }
 
     public static function fixImgUrl($url) {
-      if(str_contains("https://", $url) || str_contains("http://", $url))
+      if(str_contains($url, "https://") || str_contains($url, "http://"))
           return $url;
 
       return config("app.url") . "/" . $url;
