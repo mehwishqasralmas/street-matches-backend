@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\image as ImageModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ class player extends Model
 
     protected $guarded = ['id'];
     protected $hidden = ['img_id'];
-    protected $appends = ['position_name'];
+    protected $appends = ['position_name', "img_url"];
 
     public static $POSTIONS = [
       ["code" => 'GK', "name"=> "Goalkeeper"],
@@ -35,4 +36,9 @@ class player extends Model
 
       return null;
     }
+
+  public function getImgUrlAttribute() {
+    return ImageModel::getImgUrlById($this->attributes["img_id"]);
+  }
+
 }

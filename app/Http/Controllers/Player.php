@@ -12,9 +12,7 @@ use function PHPUnit\Framework\isEmpty;
 class Player extends Controller
 {
     public function index($userId = null) {
-      $players = PlayerModel::query()
-        ->select("players.*", "images.url as player_img_url")
-        ->leftJoin("images", "img_id", "=", "images.id");
+      $players = PlayerModel::query()->select();
 
       if(!empty($userId))
         $players = $players->where("user_id", "=", $userId);

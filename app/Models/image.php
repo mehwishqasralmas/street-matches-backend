@@ -14,7 +14,7 @@ class image extends Model
     public static function getImgUrlById($id) {
         if(empty($id)) return null;
         $img = static::where('id', $id)->first();
-        return empty($img) ? null : $img->url;
+        return empty($img) ? null : static::fixImgUrl($img->url);
     }
 
     public static function getImgIdByUrl($url) {
@@ -26,4 +26,10 @@ class image extends Model
       return empty($img) ? null : $img->id;
     }
 
+    public static function fixImgUrl($url) {
+      if(str_contains("https://", $url) || str_contains("http://", $url))
+          return $url;
+
+      return config("app.url") . "/" . $url;
+    }
 }
