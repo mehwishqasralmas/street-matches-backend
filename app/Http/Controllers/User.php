@@ -61,7 +61,6 @@ class User extends Controller
       $user = Auth::user();
       $token = $user->createToken($user->first_name)->plainTextToken;
       $user->token = $token;
-      $user->img_url = ImageModel::getImgUrlById($user->img_id);
       $user->player = (new PlayerController())->index($user->id)->get(0);
 
       return response($user);
@@ -75,7 +74,6 @@ class User extends Controller
   {
     if (Auth::check()) {
       $user = Auth::user();
-      $user->img_url = ImageModel::getImgUrlById($user->img_id);
       $user->player = (new PlayerController())->index($user->id)->get(0);
       return response($user);
     }
@@ -122,7 +120,7 @@ class User extends Controller
   public function updateInfo(Request $req) {
     $userFields = $req->only (
       "first_name", "last_name", "email", "password", "birthdate", "phone_number",
-      "location_long", "location_lat", "address"
+      "location_long", "location_lat", "address", "img_url"
     );
 
     $playerFields = $req->only (
@@ -131,12 +129,20 @@ class User extends Controller
       "description", "weight", "height", "year_active", "position"
     );
 
+    if(!empty($userFields["img_url"])) {
+      $userFields["img_id"] = ImageModel::getImgIdByUrl($userFields["img_url"]);
+      $playerFields["img_id"] = $userFields["img_id"];
+      unset($userFields["img_url"]);
+    }
+
     $user = Auth::user();
     UserModel::query()->whereKey($user->id)->update($userFields);
     $user = $user->fresh();
     $user->player = (new PlayerController())->index($user->id)->get(0);
-    if(!empty($user->player))
+    if(!empty($user->player) && !empty($playerFields)) {
       $user->player->updateOrFail($playerFields);
+      $user->player = (new PlayerController())->index($user->id)->get(0);
+    }
 
     return response($user);
   }

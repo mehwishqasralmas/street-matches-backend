@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use App\Models\image as ImageModel;
 
 class User extends Authenticatable implements PasswordReset
 {
@@ -45,7 +46,13 @@ class User extends Authenticatable implements PasswordReset
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ["img_url"];
+
     public function setPasswordAttribute($value) {
       $this->attributes['password'] = password_hash($value, null);
+    }
+
+    public function getImgUrlAttribute() {
+      return ImageModel::getImgUrlById($this->attributes["img_id"]);
     }
 }
