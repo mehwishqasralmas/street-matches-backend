@@ -7,11 +7,12 @@ use App\Models\match as MatchModel;
 use App\Models\team as TeamModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
+use App\Http\Controllers\Team as TeamController;
 
 class Match extends Controller
 {
 
-  public function index(Request $req, $dayOffsetFilter = null)
+  public function index(Request $req, $dayOffsetFilter = null, $matchId = null)
   {
 
     $dayOffsetFilter = $dayOffsetFilter ?? $req->query("dayOffsetFilter");
@@ -25,6 +26,8 @@ class Match extends Controller
     }
 
     $matches = MatchModel::query()->select();
+    $matches = !empty($matchId) ? $matches->whereKey($matchId) : $matches;
+
     if(!empty($daysOffset) || $daysOffset == "0")
       $matches = $matches->whereRaw (
         "DATE(schedule_time) $daysOffsetOp DATE_ADD(CURRENT_DATE(), INTERVAL $daysOffset DAY)"
@@ -40,6 +43,15 @@ class Match extends Controller
 
       $match['home_team'] = $homeTeam;
       $match['away_team'] = $awayTeam;
+    }
+
+    if(!empty($matchId) && $matches->isNotEmpty()) {
+      $match = $matches->get(0);
+      $match['home_team']['players'] =
+        (new TeamController())->getPlayers($homeTeam->id);
+      $match['away_team']['players'] =
+        (new TeamController())->getPlayers($awayTeam->id);
+      return $match;
     }
 
     return $matches;

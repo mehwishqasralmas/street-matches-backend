@@ -64,6 +64,9 @@ Route::prefix('team')->middleware('auth:sanctum')->group(function() {
 
 Route::prefix('match')->middleware('auth:sanctum')->group(function() {
   Route::get('/list', [Match::class, 'index']);
+  Route::get('/{matchId}/details', function(Request $req, $matchId) {
+    return (new Match())->index($req, null, $matchId);
+  });
   Route::post('/', [Match::class, 'add']);
   Route::put('/{match}', [Match::class, 'update']);
   Route::delete('/{match}', [Match::class, 'delete']);
