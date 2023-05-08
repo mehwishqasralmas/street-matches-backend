@@ -29,7 +29,7 @@ class Team extends Controller
       'location_lat' => 'required'
     ]);
 
-    TeamModel::create([
+    $newTeam = TeamModel::create([
       'name' => $req->name,
       'location_long' => $req->location_long,
       'location_lat' => $req->location_lat,
@@ -37,6 +37,14 @@ class Team extends Controller
       'creator_user_id' => $creatorUserId ?? Auth::user()->id,
       'logo_img_id' => ImageModel::getImgIdByUrl($req->logo_img_url)
     ]);
+
+    if(!empty($req->players)) {
+        foreach($req->players as $player)
+          TeamPlayerModel::firstOrCreate([
+            "team_id" => $newTeam->id,
+            "player_id" => $player
+          ]);
+    }
 
     return response(null, 200);
   }
