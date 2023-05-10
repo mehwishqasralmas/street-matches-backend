@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->double('location_long');
             $table->double('location_lat');
             $table->string('address')->nullable();
-            $table->bigInteger('img_id')->nullable();
+            $table->unsignedBigInteger('img_id')->nullable();
             $table->longText('description');
             $table->string('players_positions')->nullable();
             $table->string('players_cnts')->nullable();
