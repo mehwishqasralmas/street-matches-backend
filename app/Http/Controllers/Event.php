@@ -87,7 +87,7 @@ class Event extends Controller
       'creator_user_id' => Auth::user()->id
     ]);
 
-    return response(null, 200);
+    return response(["message" => __("messages.eventCreated")], 200);
   }
 
   public function delete(EventModel $event)

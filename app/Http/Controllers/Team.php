@@ -46,7 +46,7 @@ class Team extends Controller
           ]);
     }
 
-    return response(null, 200);
+    return response(["message" => __("messages.teamCreated")], 200);
   }
 
   public function update(Request $req, TeamModel $team)

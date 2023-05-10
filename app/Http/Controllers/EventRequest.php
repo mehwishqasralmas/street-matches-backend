@@ -24,7 +24,7 @@ class EventRequest extends Controller
       'creator_user_id' => Auth::user()->id
     ]);
 
-    return response(null, 200);
+    return response(["message" => __("messages.eventReqCreated")], 200);
   }
 
   public function delete(EventReqModels $eventReq)

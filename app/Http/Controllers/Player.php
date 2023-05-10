@@ -50,7 +50,7 @@ class Player extends Controller
      if(!isEmpty($req->team_id))
        $this->assignToTeam($newPlayer->id, $req->team_id);
 
-      return response(null, 200);
+      return response(["message" => __("messages.playerCreated")], 200);
     }
 
   public function update(Request $req, PlayerModel $player) {

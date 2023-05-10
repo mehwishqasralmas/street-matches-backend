@@ -78,7 +78,7 @@ class Match extends Controller
       'creator_user_id' => Auth::user()->id
     ]);
 
-    return response(null, 200);
+    return response(["message" => __("messages.matchCreated")], 200);
   }
 
   public function update(Request $req, MatchModel $match)
