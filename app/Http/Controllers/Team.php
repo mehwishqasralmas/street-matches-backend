@@ -13,12 +13,7 @@ class Team extends Controller
 
   public function index()
   {
-    return TeamModel::query()
-      ->select([
-        'teams.id', 'name', 'location_long', 'location_lat', 'address',
-        'teams.created_at', 'url as logo_img_url'
-      ])->leftJoin('images', 'logo_img_id', '=', 'images.id')
-      ->get();
+    return TeamModel::all();
   }
 
   public function add(Request $req, $creatorUserId = null)

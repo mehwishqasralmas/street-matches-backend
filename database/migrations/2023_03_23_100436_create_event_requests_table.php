@@ -21,7 +21,8 @@ class CreateEventRequestsTable extends Migration
 
 
             $table->foreign('creator_user_id')->references('id')->on('users');
-            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('event_id')->references('id')->on('events')
+              ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

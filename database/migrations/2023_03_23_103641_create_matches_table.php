@@ -29,9 +29,12 @@ class CreateMatchesTable extends Migration
             $table->unsignedBigInteger('creator_user_id');
             $table->timestamps();
 
-            $table->foreign('home_team_id')->references('id')->on('teams');
-            $table->foreign('away_team_id')->references('id')->on('teams');
-            $table->foreign('creator_user_id')->references('id')->on('users');
+            $table->foreign('home_team_id')->references('id')->on('teams')
+              ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('away_team_id')->references('id')->on('teams')
+              ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('creator_user_id')->references('id')->on('users')
+              ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

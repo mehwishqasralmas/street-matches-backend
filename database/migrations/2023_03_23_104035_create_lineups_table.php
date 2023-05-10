@@ -26,9 +26,12 @@ class CreateLineupsTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('team_id')->references('id')->on('teams');
-            $table->foreign('match_id')->references('id')->on('matches');
-            $table->foreign('player_id')->references('id')->on('players');
+            $table->foreign('team_id')->references('id')->on('teams')
+              ->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('match_id')->references('id')->on('matches')
+              ->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('player_id')->references('id')->on('players')
+              ->onDelete('cascade')->onUpdate('cascade');;
 
         });
     }
