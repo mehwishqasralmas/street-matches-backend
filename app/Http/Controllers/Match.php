@@ -12,7 +12,12 @@ use App\Http\Controllers\Team as TeamController;
 class Match extends Controller
 {
 
-  public function index(Request $req, $dayOffsetFilter = null, $matchId = null)
+  public function index(
+    Request $req,
+    $dayOffsetFilter = null,
+    $matchId = null,
+    $teamId = null
+  )
   {
 
     $dayOffsetFilter = $dayOffsetFilter ?? $req->query("dayOffsetFilter");
@@ -27,6 +32,9 @@ class Match extends Controller
 
     $matches = MatchModel::query()->select();
     $matches = !empty($matchId) ? $matches->whereKey($matchId) : $matches;
+    $matches = !empty($teamId) ? $matches
+      ->whereRaw("(home_team_id = $teamId OR away_team_id = $teamId)") :
+      $matches;
 
     if(!empty($daysOffset) || $daysOffset == "0")
       $matches = $matches->whereRaw (

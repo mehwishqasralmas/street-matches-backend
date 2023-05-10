@@ -57,8 +57,10 @@ Route::prefix('player')->middleware('auth:sanctum')->group(function() {
 Route::prefix('team')->middleware('auth:sanctum')->group(function() {
   Route::get('/list', [Team::class, 'index']);
   Route::get('/{team}/players', [Team::class, 'getPlayers']);
+  Route::get('/{team}/details', [Team::class, 'details']);
   Route::post('/', [Team::class, 'add']);
   Route::put('/{team}', [Team::class, 'update']);
+  Route::delete('/{team}', [Team::class, 'delete']);
   Route::delete('/{team}', [Team::class, 'delete']);
 });
 

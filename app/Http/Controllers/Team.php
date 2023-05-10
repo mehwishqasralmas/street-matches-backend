@@ -7,13 +7,24 @@ use App\Models\team as TeamModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
 use App\Models\teamPlayer as TeamPlayerModel;
-
+use App\Http\Controllers\Match as MatchController;
 class Team extends Controller
 {
 
   public function index()
   {
     return TeamModel::all();
+  }
+
+  public function details (Request $req, TeamModel $team)
+  {
+    $matchController = new MatchController();
+    $team["matches"] = [
+      "past" => $matchController->index($req, '<,0', null, $team->id),
+      "today" => $matchController->index($req, '0', null, $team->id),
+      "scheduled" => $matchController->index($req, '>,0', null, $team->id)
+    ];
+    return $team;
   }
 
   public function add(Request $req, $creatorUserId = null)
