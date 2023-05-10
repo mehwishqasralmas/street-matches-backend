@@ -19,6 +19,7 @@ class Team extends Controller
   public function details (Request $req, TeamModel $team)
   {
     $matchController = new MatchController();
+    $team["players"] = $this->getPlayers($team->id);
     $team["matches"] = [
       "past" => $matchController->index($req, '<,0', null, $team->id),
       "today" => $matchController->index($req, '0', null, $team->id),
@@ -40,6 +41,7 @@ class Team extends Controller
       'location_long' => $req->location_long,
       'location_lat' => $req->location_lat,
       'address' => $req->address,
+      'description' => $req->description,
       'creator_user_id' => $creatorUserId ?? Auth::user()->id,
       'logo_img_id' => ImageModel::getImgIdByUrl($req->logo_img_url)
     ]);

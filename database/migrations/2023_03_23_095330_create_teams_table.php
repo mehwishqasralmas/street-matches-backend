@@ -20,6 +20,7 @@ class CreateTeamsTable extends Migration
             $table->double('location_long');
             $table->double('location_lat');
             $table->string('address')->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedBigInteger('creator_user_id');
             $table->timestamps();
 
