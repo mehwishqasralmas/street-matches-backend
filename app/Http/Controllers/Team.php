@@ -7,6 +7,7 @@ use App\Models\team as TeamModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
 use App\Models\teamPlayer as TeamPlayerModel;
+use App\Models\player as PlayerModel;
 use App\Http\Controllers\Match as MatchController;
 use App\Models\User as UserModel;
 
@@ -75,14 +76,9 @@ class Team extends Controller
 
   public function getPlayers($teamId)
   {
-    return TeamPlayerModel::query()->select([
-      'p.id', 'first_name', 'last_name', 'location_lat', 'location_long',
-      'birthdate', 'dominate_foot', 'weight', 'height', 'year_active',
-      'url as imgUrl'
-    ])->join('players as p', 'player_id', '=', 'p.id')
-      ->leftJoin('images', 'img_id', '=', 'images.id')
-      ->where('team_id', '=', $teamId)
+    return PlayerModel::query()->select()
+      ->join('team_players', 'players.id', '=', 'player_id')
+      ->where('team_id', $teamId)
       ->get();
-
   }
 }
