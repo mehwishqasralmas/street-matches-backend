@@ -34,7 +34,8 @@ class User extends Authenticatable implements PasswordReset
     protected $hidden = [
         'password',
         'remember_token',
-        'img_id'
+        'img_id',
+      'email_verified_at'
     ];
 
     /**

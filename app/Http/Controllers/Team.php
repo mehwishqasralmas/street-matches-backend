@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
 use App\Models\teamPlayer as TeamPlayerModel;
 use App\Http\Controllers\Match as MatchController;
+use App\Models\User as UserModel;
+
 class Team extends Controller
 {
 
@@ -25,6 +27,8 @@ class Team extends Controller
       "today" => $matchController->index($req, '0', null, $team->id),
       "scheduled" => $matchController->index($req, '>,0', null, $team->id)
     ];
+    $team["creator"] = UserModel::query()->whereKey($team->creator_user_id)
+      ->get()->first();
     return $team;
   }
 
