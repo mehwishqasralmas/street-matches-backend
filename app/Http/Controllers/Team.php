@@ -14,9 +14,15 @@ use App\Models\User as UserModel;
 class Team extends Controller
 {
 
-  public function index()
+  public function index(Request $req, $onlyOwn = null)
   {
-    return TeamModel::all();
+    $onlyOwn = $req->query("onlyOwn") ?? $onlyOwn;
+
+    $teams = TeamModel::query()->select();
+    if(!empty($onlyOwn))
+      $teams = $teams->where('creator_user_id', $req->user()->id);
+
+    return $teams->get();
   }
 
   public function details (Request $req, TeamModel $team)
