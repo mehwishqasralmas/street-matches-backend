@@ -20,6 +20,7 @@ class CreateMatchesTable extends Migration
             $table->double('location_long')->nullable();
             $table->double('location_lat')->nullable();
             $table->string('address');
+            $table->longText('description')->nullable();
             $table->dateTime('schedule_time');
             $table->dateTime('start_time')->nullable();
             $table->enum (
