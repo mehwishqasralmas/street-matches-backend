@@ -30,6 +30,7 @@ class Event extends Controller
       ->leftJoin('images AS event_img', 'events.img_id', '=', 'event_img.id')
       ->leftJoin('images AS team_img', 'teams.logo_img_id', '=', 'team_img.id')
       ->leftJoin('images AS user_img', 'users.img_id', '=', 'user_img.id')
+      ->orderByDesc('events.created_at')
       ->get();
 
     foreach ($events as &$event) {
