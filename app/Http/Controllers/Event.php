@@ -34,6 +34,10 @@ class Event extends Controller
       ->get();
 
     foreach ($events as &$event) {
+      $event['event_img_url'] = ImageModel::fixImgUrl($event['event_img_url']);
+      $event['creator_img_url'] = ImageModel::fixImgUrl($event['creator_img_url']);
+      $event['team_logo_url'] = ImageModel::fixImgUrl($event['team_logo_url']);
+
       if($event->type == static::$TYPES['SEARCH_PLAYERS']) {
         $positions = explode(',', $event['players_positions']);
         $counts = explode(',', $event['players_cnts']);
