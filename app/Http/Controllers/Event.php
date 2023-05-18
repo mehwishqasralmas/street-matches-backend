@@ -54,7 +54,7 @@ class Event extends Controller
             "count" => $counts[$indx]
           ];
         }
-        $event['positions'] = array_merge($temp);
+        $event['positions'] = $temp['positions'];
         unset($event['players_positions']);
         unset($event['players_cnts']);
       }
