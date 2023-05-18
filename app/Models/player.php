@@ -41,4 +41,13 @@ class player extends Model
     return ImageModel::getImgUrlById($this->attributes["img_id"]);
   }
 
+  public static function getPositionNameFromCode($code) {
+    foreach (static::$POSTIONS as $pos) {
+      if($code == $pos['code'])
+        return $pos['name'];
+    }
+
+    return null;
+  }
+
 }

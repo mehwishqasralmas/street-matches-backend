@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\event as EventModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
+use App\Models\player as PlayerModel;
 use DB;
 
 class Event extends Controller
@@ -50,7 +51,7 @@ class Event extends Controller
             continue;
 
           $temp['positions'][] = [
-            "position" => $positions[$indx],
+            "position" => PlayerModel::getPositionNameFromCode($positions[$indx]),
             "count" => $counts[$indx]
           ];
         }
