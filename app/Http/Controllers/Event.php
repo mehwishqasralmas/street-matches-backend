@@ -21,6 +21,7 @@ class Event extends Controller
     $events = EventModel::query()
       ->select('events.*',
         'teams.name AS team_name',
+        'teams.address AS team_address',
         'event_img.url AS event_img_url',
         'team_img.url AS team_logo_url',
         DB::raw("CONCAT(first_name, ' ', last_name) AS creator_name"),
