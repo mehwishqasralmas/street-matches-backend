@@ -44,6 +44,10 @@ class Event extends Controller
         $temp = ['positions' => []];
 
         for ($indx = 0; $indx < count($positions); ++$indx) {
+
+          if(empty($positions[$indx]))
+            continue;
+
           $temp['positions'][] = [
             "position" => $positions[$indx],
             "count" => $counts[$indx]
