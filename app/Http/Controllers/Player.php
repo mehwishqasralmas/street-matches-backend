@@ -94,10 +94,15 @@ class Player extends Controller
   }
 
   public function getDetails(PlayerModel $player) {
-    if(!empty($player->user_id))
-        $player->user = UserModel::query()->select()->whereKey($player->user_id)
-          ->get()->first();
+      $data = [ "player" => $player ];
+      $user = [];
 
-    return $player;
+      if(!empty($player->user_id))
+        $user = UserModel::query()->select()->whereKey($player->user_id)
+          ->get()->toArray()[0];
+
+      $data = array_merge($user, $data);
+
+      return $data;
   }
 }
