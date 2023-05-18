@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\player as PlayerModel;
 use App\Models\image as ImageModel;
 use App\Models\teamPlayer as TeamPlayerModel;
+use App\Models\User as UserModel;
 use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isEmpty;
 
@@ -92,4 +93,8 @@ class Player extends Controller
       return PlayerModel::$POSTIONS;
   }
 
+  public function getDetails(PlayerModel $player) {
+    if(!empty($player->user_id))
+        $player->user = UserModel::query()->select()->whereKey(user_id);
+  }
 }

@@ -44,6 +44,7 @@ Route::prefix('resource')->group(function(){
 Route::prefix('player')->middleware('auth:sanctum')->group(function() {
   Route::get('/list', [Player::class, 'index']);
   Route::get('/{player}/teams', [Player::class, 'getTeams']);
+  Route::get('/{player}/details', [Player::class, 'getDetails']);
   Route::post('/guest', [Player::class, 'add']);
   Route::put('/{player}', [Player::class, 'update']);
   Route::put('/{player}/team/{team}', [Player::class, 'assignToTeam']);
