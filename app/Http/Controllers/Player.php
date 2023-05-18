@@ -95,7 +95,7 @@ class Player extends Controller
 
   public function getDetails(PlayerModel $player) {
     if(!empty($player->user_id))
-        $player->user = UserModel::query()->select()->whereKey($player->user_id);
+        $player->user = UserModel::query()->select()->whereKey($player->user_id)->get();
 
     return $player;
   }
