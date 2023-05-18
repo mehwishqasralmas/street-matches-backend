@@ -51,7 +51,8 @@ class Event extends Controller
             continue;
 
           $temp['positions'][] = [
-            "position" => PlayerModel::getPositionNameFromCode($positions[$indx]),
+            "position" => $positions[$indx],
+            "position_name" => PlayerModel::getPositionNameFromCode($positions[$indx]),
             "count" => $counts[$indx]
           ];
         }
