@@ -17,10 +17,14 @@ class CreateEventRequestsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('creator_user_id');
             $table->unsignedBigInteger('event_id')->nullable();
+            $table->unsignedBigInteger('team_id')->nullable();
+            $table->boolean('is_accepted')->default(false);
             $table->timestamps();
 
 
             $table->foreign('creator_user_id')->references('id')->on('users');
+            $table->foreign('team_id')->references('id')->on('teams')
+              ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('event_id')->references('id')->on('events')
               ->onDelete('cascade')->onUpdate('cascade');
         });

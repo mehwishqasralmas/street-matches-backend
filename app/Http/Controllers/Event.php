@@ -74,13 +74,15 @@ class Event extends Controller
     $playersPos = null;
     $playersCnt = null;
 
-    if($req->type == static::$TYPES['CHALLENGE_TEAM'] ||
-      $req->type == static::$TYPES['SEARCH_PLAYERS']) {
-        $req->validate(['team_id' => 'required']);
+    if($req->type == static::$TYPES['CHALLENGE_TEAM']) {
+        $req->validate([
+          'team_id' => 'required',
+          'schedule_time' => 'required'
+        ]);
     }
 
-    if($req->type == static::$TYPES['SEARCH_PLAYERS']) {
-      $req->validate(['positions' => 'required']);
+    else if($req->type == static::$TYPES['SEARCH_PLAYERS']) {
+      $req->validate(['team_id' => 'required', 'positions' => 'required']);
       $playersPos = $playersCnt = '';
       foreach ($req->positions as $position) {
         $playersPos = $playersPos . $position['position'] . ',';
@@ -97,6 +99,7 @@ class Event extends Controller
       'players_positions' => $playersPos,
       'players_cnts' => $playersCnt,
       'team_id' => $req->team_id,
+      'schedule_time' => $req->schedule_time,
       'img_id' => ImageModel::getImgIdByUrl($req->img_url),
       'creator_user_id' => Auth::user()->id
     ]);

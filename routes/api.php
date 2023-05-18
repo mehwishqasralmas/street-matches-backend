@@ -87,6 +87,7 @@ Route::prefix('event')->middleware('auth:sanctum')->group(function() {
   Route::get('/{event}/request/list', [EventRequest::class, 'index']);
   Route::post('/', [Event::class, 'add']);
   Route::post('/request', [EventRequest::class, 'add']);
+  Route::post('/request/{eventReq}/accept', [EventRequest::class, 'acceptReq']);
   Route::delete('/{event}', [Event::class, 'delete']);
   Route::delete('/request/{eventReq}', [EventRequest::class, 'delete']);
 });

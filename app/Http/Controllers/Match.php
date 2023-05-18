@@ -12,7 +12,7 @@ use App\Http\Controllers\Team as TeamController;
 class Match extends Controller
 {
 
-  public function index(
+  public function index (
     Request $req,
     $dayOffsetFilter = null,
     $matchId = null,

@@ -6,4 +6,5 @@
    "matchCreated" => "Match Created Successfully",
    "eventCreated" => "Event Created Successfully",
    "eventReqCreated" => "Event Request Created Successfully",
+   "eventReqAccepted" => "Event Request Accepted Successfully",
  ];

@@ -25,6 +25,7 @@ class CreateEventsTable extends Migration
             $table->string('players_cnts')->nullable();
             $table->unsignedBigInteger('creator_user_id');
             $table->unsignedBigInteger('team_id')->nullable();
+            $table->dateTime('schedule_time')->nullable();
             $table->timestamps();
 
             $table->foreign('creator_user_id')->references('id')->on('users');
