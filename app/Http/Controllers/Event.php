@@ -70,7 +70,9 @@ class Event extends Controller
     if($req->type == static::$TYPES['CHALLENGE_TEAM'] ||
       $req->type == static::$TYPES['SEARCH_PLAYERS']) {
         $req->validate(['team_id' => 'required']);
-    } else if($req->type == static::$TYPES['SEARCH_PLAYERS']) {
+    }
+
+    if($req->type == static::$TYPES['SEARCH_PLAYERS']) {
       $req->validate(['positions' => 'required']);
       $playersPos = $playersCnt = '';
       foreach ($req->positions as $position) {
