@@ -94,7 +94,7 @@ Route::prefix('event')->middleware('auth:sanctum')->group(function() {
 
 Route::prefix('home')->middleware('auth:sanctum')->group(function() {
   Route::get('/data', function (Request $req) {
-    $events = (new Event())->index();
+    $events = (new Event())->index($req);
     $matches = (new Match())->index($req, ">=,0");
 
     return ["matches" => $matches, "events" => $events];
