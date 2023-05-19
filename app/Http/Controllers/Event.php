@@ -17,8 +17,10 @@ class Event extends Controller
     'CHALLENGE_TEAM' => 'CHALLENGE_TEAM'
   ];
 
-  public function index()
+  public function index(Request $req, $onlyOwn = null)
   {
+    $onlyOwn = $onlyOwn ?? $req->query('onlyOwn');
+
     $events = EventModel::query()
       ->select('events.*',
         'teams.name AS team_name',
@@ -32,8 +34,12 @@ class Event extends Controller
       ->leftJoin('images AS event_img', 'events.img_id', '=', 'event_img.id')
       ->leftJoin('images AS team_img', 'teams.logo_img_id', '=', 'team_img.id')
       ->leftJoin('images AS user_img', 'users.img_id', '=', 'user_img.id')
-      ->orderByDesc('events.created_at')
-      ->get();
+      ->orderByDesc('events.created_at');
+
+    if(!empty($onlyOwn))
+      $events = $events->where('events.creator_user_id', $req->user()->id);
+
+    $events = $events->get();
 
     foreach ($events as &$event) {
       $event['event_img_url'] = ImageModel::fixImgUrl($event['event_img_url']);
