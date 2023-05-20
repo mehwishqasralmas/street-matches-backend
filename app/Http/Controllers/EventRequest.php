@@ -44,11 +44,14 @@ class EventRequest extends Controller
       $req->validate(['team_id' => 'required']);
     }
 
-    EventReqModel::create([
+    $newEventReq = EventReqModel::create([
       'event_id' => $req->event_id,
       'team_id' => $req->team_id,
       'creator_user_id' => Auth::user()->id
     ]);
+
+    if($event->type == EventController::$TYPES['CHALLENGE_TEAM'])
+      $this->acceptReq($req, $newEventReq->id);
 
     return response(["message" => __("messages.eventReqCreated")], 200);
   }
@@ -63,7 +66,8 @@ class EventRequest extends Controller
       $event = EventModel::query()->select()->whereKey($eventReq->event_id)
         ->get()->first();
 
-      if($req->user()->id !== $event->creator_user_id)
+      if($req->user()->id !== $event->creator_user_id &&
+        $event->type != EventController::$TYPES['CHALLENGE_TEAM'])
           return response(null, 403 );
 
       switch($event->type) {
@@ -93,9 +97,13 @@ class EventRequest extends Controller
             'start_time' => $event->schedule_time ?? today()->toString(),
             'creator_user_id' => $event->creator_user_id
           ]);
+          $event->is_closed = true;
+          $event->save();
           break;
       }
 
-    return response(["message" => __("messages.eventReqAccepted")], 200);
+
+
+      return response(["message" => __("messages.eventReqAccepted")], 200);
   }
 }
