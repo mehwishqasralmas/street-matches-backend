@@ -51,7 +51,7 @@ class EventRequest extends Controller
     ]);
 
     if($event->type == EventController::$TYPES['CHALLENGE_TEAM'])
-      $this->acceptReq($req, $newEventReq->id);
+      $this->acceptReq($req, $newEventReq);
 
     return response(["message" => __("messages.eventReqCreated")], 200);
   }
