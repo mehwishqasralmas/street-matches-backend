@@ -9,13 +9,25 @@ use App\Models\teamPlayer as TeamPlayerModel;
 use App\Models\match as MatchModel;
 use App\Http\Controllers\Event as EventController;
 use App\Http\Controllers\Player as PlayerController;
+use App\Models\User as UserModel;
+use App\Models\team as TeamModel;
+
 use Illuminate\Support\Facades\Auth;
 
 class EventRequest extends Controller
 {
   public function index($eventId)
   {
-    return EventReqModel::where('event_id' , $eventId)->get();
+    $eventReqs = EventReqModel::where('event_id' , $eventId)->get();
+
+    foreach($eventReqs as $eventReq) {
+      $eventReq["creator"] = UserModel::wherekey($eventReq->creator_user_id)
+          ->get()->first();
+      $eventReq["team"] = TeamModel::wherekey($eventReq->team_id)
+          ->get()->first();
+    }
+
+    return $eventReqs;
   }
 
   public function add(Request $req)
