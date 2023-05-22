@@ -78,6 +78,8 @@ class EventRequest extends Controller
             'player_id' => $player->id,
             'team_id'=> $event->team_id
           ]);
+          $eventReq->is_accepted = true;
+          $eventReq->save();
           break;
         case EventController::$TYPES['SEARCH_TEAM']:
           $player = (new PlayerController())->index($event->creator_user_id);
@@ -85,6 +87,8 @@ class EventRequest extends Controller
             'player_id' => $player->id,
             'team_id'=> $eventReq->team_id
           ]);
+          $eventReq->is_accepted = true;
+          $eventReq->save();
           break;
         case EventController::$TYPES['CHALLENGE_TEAM']:
           MatchModel::create([
@@ -98,7 +102,9 @@ class EventRequest extends Controller
             'start_time' => $event->schedule_time ?? today()->toString(),
             'creator_user_id' => $event->creator_user_id
           ]);
+          $eventReq->is_accepted = true;
           $event->is_closed = true;
+          $eventReq->save();
           $event->save();
           break;
       }
