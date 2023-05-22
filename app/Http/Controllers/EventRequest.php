@@ -23,6 +23,7 @@ class EventRequest extends Controller
     foreach($eventReqs as $eventReq) {
       $eventReq["creator"] = UserModel::wherekey($eventReq->creator_user_id)
           ->get()->first();
+      $eventReq["creator"]["player"] = (new PlayerController())->index($eventReq["creator"]->id)->first();
       $eventReq["team"] = TeamModel::wherekey($eventReq->team_id)
           ->get()->first();
     }
