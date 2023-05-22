@@ -29,7 +29,8 @@ class CreateEventsTable extends Migration
             $table->boolean('is_closed')->default(false);
             $table->timestamps();
 
-            $table->foreign('creator_user_id')->references('id')->on('users');
+            $table->foreign('creator_user_id')->references('id')->on('users')
+              ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('team_id')->references('id')->on('teams')
               ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('img_id')->references('id')->on('images');

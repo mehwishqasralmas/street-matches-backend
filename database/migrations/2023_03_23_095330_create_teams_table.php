@@ -25,7 +25,9 @@ class CreateTeamsTable extends Migration
             $table->timestamps();
 
             $table->foreign('logo_img_id')->references('id')->on('images');
-            $table->foreign('creator_user_id')->references('id')->on('users');
+            $table->foreign('creator_user_id')->references('id')
+              ->on('users')->onUpdate('cascade')->onDelete('cascade')
+            ;
         });
     }
 

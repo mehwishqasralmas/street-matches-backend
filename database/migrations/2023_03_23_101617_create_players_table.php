@@ -37,7 +37,8 @@ class CreatePlayersTable extends Migration
             $table->unsignedBigInteger('img_id')->nullable();
             $table->unsignedBigInteger('creator_user_id');
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')
+              ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('creator_user_id')->references('id')->on('users');
             $table->foreign('img_id')->references('id')->on('images');
         });

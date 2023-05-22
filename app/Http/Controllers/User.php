@@ -147,4 +147,9 @@ class User extends Controller
     return response($user);
   }
 
+  public function delete(Request $req) {
+    $req->user()->delete();
+    return response(__('accountDeleted'), 200);
+  }
+
 }
