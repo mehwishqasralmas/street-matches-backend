@@ -34,6 +34,7 @@ class CreatePlayersTable extends Migration
             $table->double('location_lat');
             $table->string('address')->nullable();
             $table->longText('description')->nullable();
+            $table->longText('description_cn')->nullable();
             $table->unsignedBigInteger('img_id')->nullable();
             $table->unsignedBigInteger('creator_user_id');
 
