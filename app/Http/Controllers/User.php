@@ -126,7 +126,8 @@ class User extends Controller
     $playerFields = $req->only (
       "first_name", "last_name", "birthdate", "phone_number",
       "location_long", "location_lat", "address", "dominate_foot",
-      "description", "weight", "height", "year_active", "position"
+      "description", "description_cn", "weight", "height",
+      "year_active", "position"
     );
 
     if(!empty($userFields["img_url"])) {
