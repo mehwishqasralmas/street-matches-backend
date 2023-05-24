@@ -103,6 +103,7 @@ class Event extends Controller
       'location_lat' => $req->location_lat,
       'address' => $req->address,
       'description' => $req->description,
+      'description_cn' => $req->description_cn,
       'players_positions' => $playersPos,
       'players_cnts' => $playersCnt,
       'team_id' => $req->team_id,

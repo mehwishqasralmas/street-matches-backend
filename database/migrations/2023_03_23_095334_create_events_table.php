@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->string('address')->nullable();
             $table->unsignedBigInteger('img_id')->nullable();
             $table->longText('description');
+            $table->longText('description_cn')->nullable();
             $table->string('players_positions')->nullable();
             $table->string('players_cnts')->nullable();
             $table->unsignedBigInteger('creator_user_id');
