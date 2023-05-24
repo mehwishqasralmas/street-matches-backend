@@ -24,6 +24,7 @@ class Event extends Controller
     $events = EventModel::query()
       ->select('events.*',
         'teams.name AS team_name',
+        'teams.name_cn AS team_name_cn',
         'teams.address AS team_address',
         'event_img.url AS event_img_url',
         'team_img.url AS team_logo_url',

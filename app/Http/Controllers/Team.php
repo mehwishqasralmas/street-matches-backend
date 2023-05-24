@@ -49,10 +49,12 @@ class Team extends Controller
 
     $newTeam = TeamModel::create([
       'name' => $req->name,
+      'name_cn' => $req->name_cn,
       'location_long' => $req->location_long,
       'location_lat' => $req->location_lat,
       'address' => $req->address,
       'description' => $req->description,
+      'description_cn' => $req->description_cn,
       'creator_user_id' => $creatorUserId ?? Auth::user()->id,
       'logo_img_id' => ImageModel::getImgIdByUrl($req->logo_img_url)
     ]);

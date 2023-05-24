@@ -16,11 +16,13 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_cn')->nullable();
             $table->unsignedBigInteger('logo_img_id')->nullable();
             $table->double('location_long');
             $table->double('location_lat');
             $table->string('address')->nullable();
             $table->longText('description')->nullable();
+            $table->longText('description_cn')->nullable();
             $table->unsignedBigInteger('creator_user_id');
             $table->timestamps();
 

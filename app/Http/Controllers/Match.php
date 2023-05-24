@@ -82,6 +82,7 @@ class Match extends Controller
       'location_lat' => $req->location_lat,
       'address' => $req->address,
       'description' => $req->description,
+      'description_cn' => $req->description_cn,
       'schedule_time' => $req->schedule_time,
       'start_time' => $req->start_time,
       'creator_user_id' => Auth::user()->id
