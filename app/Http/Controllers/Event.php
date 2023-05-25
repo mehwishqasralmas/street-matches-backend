@@ -60,6 +60,7 @@ class Event extends Controller
           $temp['positions'][] = [
             "position" => $positions[$indx],
             "position_name" => PlayerModel::getPositionNameFromCode($positions[$indx]),
+            "position_name_cn" => PlayerModel::getPositionNameFromCode($positions[$indx], 'cn'),
             "count" => $counts[$indx]
           ];
         }
