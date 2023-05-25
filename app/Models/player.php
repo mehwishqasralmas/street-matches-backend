@@ -29,12 +29,12 @@ class player extends Model
 
     public function getPositionNameAttribute() {
       $position = $this->attributes['position'];
-      return static::getPositionNameFromCode($position, 'cn');
+      return static::getPositionNameFromCode($position);
     }
 
   public function getPositionNameCnAttribute() {
     $position = $this->attributes['position'];
-    return static::getPositionNameFromCode($position);
+    return static::getPositionNameFromCode($position, "cn");
   }
 
   public function getImgUrlAttribute() {
