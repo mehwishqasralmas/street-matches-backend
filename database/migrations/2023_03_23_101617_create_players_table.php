@@ -40,7 +40,8 @@ class CreatePlayersTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')
               ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('creator_user_id')->references('id')->on('users');
+            $table->foreign('creator_user_id')->references('id')->on('users')
+              ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('img_id')->references('id')->on('images');
         });
     }
