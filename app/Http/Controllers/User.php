@@ -133,9 +133,10 @@ class User extends Controller
     if(!empty($userFields["img_url"])) {
       $userFields["img_id"] = ImageModel::getImgIdByUrl($userFields["img_url"]);
       $playerFields["img_id"] = $userFields["img_id"];
-      unset($userFields["img_url"]);
     }
 
+    unset($userFields["img_url"]);
+    
     $user = Auth::user();
     UserModel::query()->whereKey($user->id)->update($userFields);
     $user = $user->fresh();
