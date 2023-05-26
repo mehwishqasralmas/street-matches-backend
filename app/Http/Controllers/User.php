@@ -150,7 +150,7 @@ class User extends Controller
 
   public function delete(Request $req) {
     $req->user()->delete();
-    return response(__('accountDeleted'), 200);
+    return response(["message" => __('accountDeleted')], 200);
   }
 
 }
