@@ -66,7 +66,7 @@ class User extends Controller
       return response($user);
     }
 
-    return response(["message" => "Invalid Email Or Password"], 401);
+    return response(["message" => "Invalid Email Or Password"], 404);
   }
 
 
