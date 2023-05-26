@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword as PasswordReset;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,5 +54,9 @@ class User extends Authenticatable implements PasswordReset
 
     public function getImgUrlAttribute() {
       return ImageModel::getImgUrlById($this->attributes["img_id"]);
+    }
+
+    public function player() {
+      return $this->hasOne(\App\Models\player::class);
     }
 }

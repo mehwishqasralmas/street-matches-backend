@@ -136,7 +136,7 @@ class User extends Controller
     }
 
     unset($userFields["img_url"]);
-    
+
     $user = Auth::user();
     UserModel::query()->whereKey($user->id)->update($userFields);
     $user = $user->fresh();
