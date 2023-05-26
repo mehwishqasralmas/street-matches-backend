@@ -82,7 +82,7 @@ class EventRequest extends Controller
           $eventReq->save();
           break;
         case EventController::$TYPES['SEARCH_TEAM']:
-          $player = (new PlayerController())->index($event->creator_user_id);
+          $player = (new PlayerController())->index($event->creator_user_id)->first();
           TeamPlayerModel::firstOrCreate([
             'player_id' => $player->id,
             'team_id'=> $eventReq->team_id
