@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
 use App\Models\teamPlayer as TeamPlayerModel;
 use App\Models\player as PlayerModel;
-use App\Http\Controllers\Match as MatchController;
+use App\Http\Controllers\Mtch as MatchController;
 use App\Models\User as UserModel;
 
 class Team extends Controller

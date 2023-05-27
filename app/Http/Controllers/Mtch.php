@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;
 use App\Http\Controllers\Team as TeamController;
 
-class Match extends Controller
+class Mtch extends Controller
 {
 
   public function index (
