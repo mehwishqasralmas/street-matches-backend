@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\match as MatchModel;
+use App\Models\mtch as MatchModel;
 use App\Models\team as TeamModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\image as ImageModel;

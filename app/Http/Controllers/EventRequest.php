@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\eventRequest as EventReqModel;
 use App\Models\event as EventModel;
 use App\Models\teamPlayer as TeamPlayerModel;
-use App\Models\match as MatchModel;
+use App\Models\mtch as MatchModel;
 use App\Http\Controllers\Event as EventController;
 use App\Http\Controllers\Player as PlayerController;
 use App\Models\User as UserModel;
