@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Player;
 use App\Http\Controllers\Team;
-use App\Http\Controllers\Match;
+use App\Http\Controllers\Match as MatchController;
 use App\Http\Controllers\Lineup;
 use App\Http\Controllers\Event;
 use App\Http\Controllers\EventRequest;
@@ -66,13 +66,13 @@ Route::prefix('team')->middleware('auth:sanctum')->group(function() {
 });
 
 Route::prefix('match')->middleware('auth:sanctum')->group(function() {
-  Route::get('/list', [Match::class, 'index']);
+  Route::get('/list', [MatchController::class, 'index']);
   Route::get('/{matchId}/details', function(Request $req, $matchId) {
-    return (new Match())->index($req, null, $matchId);
+    return (new MatchController())->index($req, null, $matchId);
   });
-  Route::post('/', [Match::class, 'add']);
-  Route::put('/{match}', [Match::class, 'update']);
-  Route::delete('/{match}', [Match::class, 'delete']);
+  Route::post('/', [MatchController::class, 'add']);
+  Route::put('/{match}', [MatchController::class, 'update']);
+  Route::delete('/{match}', [MatchController::class, 'delete']);
 });
 
 Route::prefix('lineup')->middleware('auth:sanctum')->group(function() {
@@ -95,7 +95,7 @@ Route::prefix('event')->middleware('auth:sanctum')->group(function() {
 Route::prefix('home')->middleware('auth:sanctum')->group(function() {
   Route::get('/data', function (Request $req) {
     $events = (new Event())->index($req);
-    $matches = (new Match())->index($req, ">=,0");
+    $matches = (new MatchController())->index($req, ">=,0");
 
     return ["matches" => $matches, "events" => $events];
   });
