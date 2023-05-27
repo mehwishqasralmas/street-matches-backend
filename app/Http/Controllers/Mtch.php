@@ -16,11 +16,13 @@ class Mtch extends Controller
     Request $req,
     $dayOffsetFilter = null,
     $matchId = null,
-    $teamId = null
+    $teamId = null,
+    $onlyOwn = null
   )
   {
 
     $dayOffsetFilter = $dayOffsetFilter ?? $req->query("dayOffsetFilter");
+    $onlyOwn = $onlyOwn ?? $req->query("onlyOwn");
     $daysOffset = null;
     $daysOffsetOp = null;
 
@@ -40,6 +42,11 @@ class Mtch extends Controller
       $matches = $matches->whereRaw (
         "DATE(schedule_time) $daysOffsetOp DATE_ADD(CURRENT_DATE(), INTERVAL $daysOffset DAY)"
       );
+
+    if(!empty($onlyOwn) && !empty($req->user())) {
+      $matches = $matches->where("creator_user_id", $req->user()->id);
+    }
+
     $matches = $matches->get();
 
     foreach ($matches as $match) {
