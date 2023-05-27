@@ -9,5 +9,6 @@ class mtch extends Model
 {
     use HasFactory;
 
+    protected $table = "matches";
     protected $guarded = ['id'];
 }
