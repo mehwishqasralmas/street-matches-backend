@@ -16,7 +16,7 @@ class SwitchDB
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->header('DB_NUM') == 2)
+        if($request->header('db-num') == 2)
           config(['database.default' => 'mysql_2']);
 
         return $next($request);
