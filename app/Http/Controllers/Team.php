@@ -17,12 +17,13 @@ class Team extends Controller
   public function index(Request $req, $onlyOwn = null)
   {
     $onlyOwn = $req->query("onlyOwn") ?? $onlyOwn;
+    $limit = $req->query('limit');
 
     $teams = TeamModel::query()->select();
     if(!empty($onlyOwn))
       $teams = $teams->where('creator_user_id', $req->user()->id);
 
-    return $teams->get();
+    return $teams->limit($limit)->get();
   }
 
   public function details (Request $req, TeamModel $team)

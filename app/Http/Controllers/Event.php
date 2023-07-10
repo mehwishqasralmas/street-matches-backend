@@ -20,6 +20,7 @@ class Event extends Controller
   public function index(Request $req, $onlyOwn = null)
   {
     $onlyOwn = $onlyOwn ?? $req->query('onlyOwn');
+    $limit = $req->query('limit');
 
     $events = EventModel::query()
       ->select('events.*',
@@ -40,7 +41,7 @@ class Event extends Controller
     if(!empty($onlyOwn))
       $events = $events->where('events.creator_user_id', $req->user()->id);
 
-    $events = $events->get();
+    $events = $events->limit($limit)->get();
 
     foreach ($events as &$event) {
       $event['event_img_url'] = ImageModel::fixImgUrl($event['event_img_url']);

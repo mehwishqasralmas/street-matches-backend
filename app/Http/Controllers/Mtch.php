@@ -23,6 +23,7 @@ class Mtch extends Controller
 
     $dayOffsetFilter = $dayOffsetFilter ?? $req->query("dayOffsetFilter");
     $onlyOwn = $onlyOwn ?? $req->query("onlyOwn");
+    $limit = $req->query('limit');
     $daysOffset = null;
     $daysOffsetOp = null;
 
@@ -47,7 +48,7 @@ class Mtch extends Controller
       $matches = $matches->where("creator_user_id", $req->user()->id);
     }
 
-    $matches = $matches->get();
+    $matches = $matches->orderByDesc('schedule_time')->limit($limit)->get();
 
     foreach ($matches as $match) {
       $homeTeam = TeamModel::find($match->home_team_id);
