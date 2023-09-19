@@ -105,4 +105,12 @@ Route::prefix('home')->middleware('auth:sanctum')->group(function() {
 Route::prefix('user')->middleware('auth:sanctum')->group(function() {
   Route::put('/info', [User::class, 'updateInfo']);
   Route::delete('/account', [User::class, 'delete']);
+
+  Route::get('/activities', function (Request $req) {
+    $events = (new Event())->index($req);
+    $matches = (new MatchController())->index($req, ">=,0");
+    $teams = (new Team())->index($req, true);
+
+    return ["matches" => $matches, "events" => $events, "teams"=> $teams];
+  });
 });
