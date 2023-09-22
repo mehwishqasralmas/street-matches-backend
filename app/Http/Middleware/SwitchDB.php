@@ -18,6 +18,8 @@ class SwitchDB
     {
         if($request->header('db-num') == 2)
           config(['database.default' => 'mysql_2']);
+      if($request->header('db-num') == 3)
+        config(['database.default' => 'mysql_3']);
 
         return $next($request);
     }
