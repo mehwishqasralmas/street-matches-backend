@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Player;
 use App\Http\Controllers\Team;
+use App\Http\Controllers\Stadium;
 use App\Http\Controllers\Mtch as MatchController;
 use App\Http\Controllers\Lineup;
 use App\Http\Controllers\Event;
@@ -97,8 +98,9 @@ Route::prefix('home')->middleware('auth:sanctum')->group(function() {
     $events = (new Event())->index($req);
     $matches = (new MatchController())->index($req, ">=,0");
     $teams = (new Team())->index($req, true);
+    $stadiums = (new Stadium())->index($req, false);
 
-    return ["matches" => $matches, "events" => $events, "teams"=> $teams];
+    return ["matches" => $matches, "events" => $events, "teams"=> $teams, "stadiums" => $stadiums];
   });
 });
 
@@ -113,4 +115,12 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function() {
 
     return ["matches" => $matches, "events" => $events, "teams"=> $teams];
   });
+});
+
+
+Route::prefix('stadium')->group(function() {
+  Route::get('/list', [Stadium::class, 'index']);
+  Route::get('/{stadium}/details', [Stadium::class, 'details']);
+  Route::post('/', [Stadium::class, 'add'])->middleware('auth:sanctum');
+  Route::delete('/{stadium}', [Stadium::class, 'delete']);
 });
