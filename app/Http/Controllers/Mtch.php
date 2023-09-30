@@ -17,13 +17,15 @@ class Mtch extends Controller
     $dayOffsetFilter = null,
     $matchId = null,
     $teamId = null,
-    $onlyOwn = null
+    $onlyOwn = null,
+    $userId = null
   )
   {
 
     $dayOffsetFilter = $dayOffsetFilter ?? $req->query("dayOffsetFilter");
     $onlyOwn = $onlyOwn ?? $req->query("onlyOwn");
     $limit = $req->query('limit');
+    $userId = $userId ?? $req->query('userId');
     $daysOffset = null;
     $daysOffsetOp = null;
 
@@ -44,9 +46,11 @@ class Mtch extends Controller
         "DATE(schedule_time) $daysOffsetOp DATE_ADD(CURRENT_DATE(), INTERVAL $daysOffset DAY)"
       );
 
-    if(!empty($onlyOwn) && !empty($req->user())) {
+    if(!empty($onlyOwn) && !empty($req->user()))
       $matches = $matches->where("creator_user_id", $req->user()->id);
-    }
+    else if(!empty($userId))
+      $matches = $matches->where('creator_user_id', $userId);
+
 
     $matches = $matches->orderByDesc('schedule_time')->limit($limit)->get();
 

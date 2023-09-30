@@ -111,7 +111,7 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function() {
   Route::get('/activities', function (Request $req) {
     $events = (new Event())->index($req);
     $matches = (new MatchController())->index($req, ">=,0");
-    $teams = (new Team())->index($req, true);
+    $teams = (new Team())->index($req);
 
     return ["matches" => $matches, "events" => $events, "teams"=> $teams];
   });

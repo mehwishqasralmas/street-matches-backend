@@ -17,10 +17,11 @@ class Event extends Controller
     'CHALLENGE_TEAM' => 'CHALLENGE_TEAM'
   ];
 
-  public function index(Request $req, $onlyOwn = null)
+  public function index(Request $req, $onlyOwn = null, $userId = null)
   {
     $onlyOwn = $onlyOwn ?? $req->query('onlyOwn');
     $limit = $req->query('limit');
+    $userId = $userId ?? $req->query('userId');
 
     $events = EventModel::query()
       ->select('events.*',
@@ -40,6 +41,8 @@ class Event extends Controller
 
     if(!empty($onlyOwn))
       $events = $events->where('events.creator_user_id', $req->user()->id);
+    else if(!empty($userId))
+      $events = $events->where('events.creator_user_id', $userId);
 
     $events = $events->limit($limit)->get();
 
