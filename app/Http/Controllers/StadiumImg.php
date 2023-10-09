@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\stadiumImg AS StadiumImgModel;
-use App\Models\stadium AS StadiumModel;
+use App\Models\StadiumImg AS StadiumImgModel;
+use App\Models\Stadium AS StadiumModel;
 use Illuminate\Http\Request;
 
-class stadiumImg extends Controller
+class StadiumImg extends Controller
 {
     public function index($stadiumId = null) {
 

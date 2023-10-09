@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\image as ImgModel;
 
-class stadiumImg extends Model
+class StadiumImg extends Model
 {
     use HasFactory;
 

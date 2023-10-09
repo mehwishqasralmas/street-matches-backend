@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\stadiumImg as StadiumImgController;
+use App\Http\Controllers\StadiumImg as StadiumImgController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
