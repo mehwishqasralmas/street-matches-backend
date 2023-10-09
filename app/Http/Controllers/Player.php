@@ -46,7 +46,7 @@ class Player extends Controller
         'height' => $req->height,
         'year_active' => $req->year_active,
         'creator_user_id' => $creatorUserId ?? Auth::user()->id,
-        'img_id' => ImageModel::getImgIdByUrl($req->img_url)
+        'img_id' => ImageModel::getImgIdByUrl($req->img_url ?? 'imgs/def-player-img.jpeg')
       ]);
 
      if(!isEmpty($req->team_id))

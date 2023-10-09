@@ -20,10 +20,10 @@ class CreateStadiumsTable extends Migration
         $table->string('name_cn')->nullable();
         $table->longText('description')->nullable();
         $table->longText('description_cn')->nullable();
-        $table->unsignedBigInteger('img_id')->nullable();
         $table->double('location_long');
         $table->double('location_lat');
         $table->string('address')->nullable();
+        $table->string('timings')->nullable();
         $table->unsignedBigInteger('owner_user_id');
 
         $table->string('available_sports')->nullable();
@@ -31,7 +31,6 @@ class CreateStadiumsTable extends Migration
 
         $table->timestamps();
 
-        $table->foreign('img_id')->references('id')->on('images');
         $table->foreign('owner_user_id')->references('id')
           ->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
