@@ -2,7 +2,7 @@
  return [
    "teamCreated" => "Team Created Successfully",
    "accountCreated" => "Account Created Successfully",
-   "playerCreated" => "Team Created Successfully",
+   "playerCreated" => "Player Created Successfully",
    "matchCreated" => "Match Created Successfully",
    "eventCreated" => "Event Created Successfully",
    "eventReqCreated" => "Event Request Created Successfully",
