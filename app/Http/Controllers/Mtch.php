@@ -46,8 +46,8 @@ class Mtch extends Controller
         "DATE(schedule_time) $daysOffsetOp DATE_ADD(CURRENT_DATE(), INTERVAL $daysOffset DAY)"
       );
 
-    if(!empty($onlyOwn) && !empty($req->user()))
-      $matches = $matches->where("creator_user_id", $req->user()->id);
+    if(!empty($onlyOwn) && !empty($req->user('sanctum')))
+      $matches = $matches->where("creator_user_id", $req->user('sanctum')->id);
     else if(!empty($userId))
       $matches = $matches->where('creator_user_id', $userId);
 

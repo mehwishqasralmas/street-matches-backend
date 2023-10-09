@@ -42,32 +42,32 @@ Route::prefix('resource')->group(function(){
 });
 
 
-Route::prefix('player')->middleware('auth:sanctum')->group(function() {
+Route::prefix('player')->group(function() {
   Route::get('/list', [Player::class, 'index']);
   Route::get('/{player}/teams', [Player::class, 'getTeams']);
   Route::get('/{player}/details', [Player::class, 'getDetails']);
-  Route::post('/guest', [Player::class, 'add']);
-  Route::put('/{player}', [Player::class, 'update']);
-  Route::put('/{player}/team/{team}', [Player::class, 'assignToTeam']);
-  Route::delete('/{player}/team/{team}', [Player::class, 'unassignFromTeam']);
-  Route::delete('/{player}', [Player::class, 'delete']);
 
-  Route::get('/positions', [Player::class, 'getPlayerPostions'])
-    ->withoutMiddleware('auth:sanctum');
+  Route::post('/guest', [Player::class, 'add'])->middleware('auth:sanctum');
+  Route::put('/{player}', [Player::class, 'update'])->middleware('auth:sanctum');
+  Route::put('/{player}/team/{team}', [Player::class, 'assignToTeam'])->middleware('auth:sanctum');
+  Route::delete('/{player}/team/{team}', [Player::class, 'unassignFromTeam'])->middleware('auth:sanctum');
+  Route::delete('/{player}', [Player::class, 'delete'])->middleware('auth:sanctum');
+
+  Route::get('/positions', [Player::class, 'getPlayerPostions']);
 });
 
-Route::prefix('team')->middleware('auth:sanctum')->group(function() {
+Route::prefix('team')->group(function() {
   Route::get('/list', [Team::class, 'index']);
   Route::get('/{team}/players', [Team::class, 'getPlayers']);
   Route::get('/{team}/details', [Team::class, 'details']);
-  Route::post('/', [Team::class, 'add']);
-  Route::put('/{team}', [Team::class, 'update']);
-  Route::delete('/{team}', [Team::class, 'delete']);
-  Route::delete('/{team}', [Team::class, 'delete']);
+  Route::post('/', [Team::class, 'add'])->middleware('auth:sanctum');
+  Route::put('/{team}', [Team::class, 'update'])->middleware('auth:sanctum');
+  Route::delete('/{team}', [Team::class, 'delete'])->middleware('auth:sanctum');
+  Route::delete('/{team}', [Team::class, 'delete'])->middleware('auth:sanctum');
 });
 
 Route::prefix('match')->middleware('auth:sanctum')->group(function() {
-  Route::get('/list', [MatchController::class, 'index']);
+  Route::get('/list', [MatchController::class, 'index'])->withoutMiddleware('auth');
   Route::get('/{matchId}/details', function(Request $req, $matchId) {
     return (new MatchController())->index($req, null, $matchId);
   });
@@ -77,15 +77,15 @@ Route::prefix('match')->middleware('auth:sanctum')->group(function() {
 });
 
 Route::prefix('lineup')->middleware('auth:sanctum')->group(function() {
-  Route::get('/list/match/{match}', [Lineup::class, 'index']);
+  Route::get('/list/match/{match}', [Lineup::class, 'index'])->withoutMiddleware('auth');
   Route::post('/', [Lineup::class, 'add']);
   Route::delete('/match/{match}/team/{team?}', [Lineup::class, 'delete']);
 });
 
 
 Route::prefix('event')->middleware('auth:sanctum')->group(function() {
-  Route::get('/list', [Event::class, 'index']);
-  Route::get('/{event}/request/list', [EventRequest::class, 'index']);
+  Route::get('/list', [Event::class, 'index'])->withoutMiddleware('auth');
+  Route::get('/{event}/request/list', [EventRequest::class, 'index'])->withoutMiddleware('auth');
   Route::post('/', [Event::class, 'add']);
   Route::post('/request', [EventRequest::class, 'add']);
   Route::post('/request/{eventReq}/accept', [EventRequest::class, 'acceptReq']);
@@ -93,7 +93,7 @@ Route::prefix('event')->middleware('auth:sanctum')->group(function() {
   Route::delete('/request/{eventReq}', [EventRequest::class, 'delete']);
 });
 
-Route::prefix('home')->middleware('auth:sanctum')->group(function() {
+Route::prefix('home')->group(function() {
   Route::get('/data', function (Request $req) {
     $events = (new Event())->index($req);
     $matches = (new MatchController())->index($req, ">=,0");
