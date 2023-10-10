@@ -70,7 +70,7 @@ Route::prefix('match')->middleware('auth:sanctum')->group(function() {
   Route::get('/list', [MatchController::class, 'index'])->withoutMiddleware('auth:sanctum');
   Route::get('/{matchId}/details', function(Request $req, $matchId) {
     return (new MatchController())->index($req, null, $matchId);
-  });
+  })->withoutMiddleware('auth:sanctum');;
   Route::post('/', [MatchController::class, 'add']);
   Route::put('/{match}', [MatchController::class, 'update']);
   Route::delete('/{match}', [MatchController::class, 'delete']);
