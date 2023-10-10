@@ -67,7 +67,7 @@ Route::prefix('team')->group(function() {
 });
 
 Route::prefix('match')->middleware('auth:sanctum')->group(function() {
-  Route::get('/list', [MatchController::class, 'index'])->withoutMiddleware('auth');
+  Route::get('/list', [MatchController::class, 'index'])->withoutMiddleware('auth:sanctum');
   Route::get('/{matchId}/details', function(Request $req, $matchId) {
     return (new MatchController())->index($req, null, $matchId);
   });
@@ -77,15 +77,15 @@ Route::prefix('match')->middleware('auth:sanctum')->group(function() {
 });
 
 Route::prefix('lineup')->middleware('auth:sanctum')->group(function() {
-  Route::get('/list/match/{match}', [Lineup::class, 'index'])->withoutMiddleware('auth');
+  Route::get('/list/match/{match}', [Lineup::class, 'index'])->withoutMiddleware('auth:sanctum');
   Route::post('/', [Lineup::class, 'add']);
   Route::delete('/match/{match}/team/{team?}', [Lineup::class, 'delete']);
 });
 
 
 Route::prefix('event')->middleware('auth:sanctum')->group(function() {
-  Route::get('/list', [Event::class, 'index'])->withoutMiddleware('auth');
-  Route::get('/{event}/request/list', [EventRequest::class, 'index'])->withoutMiddleware('auth');
+  Route::get('/list', [Event::class, 'index'])->withoutMiddleware('auth:sanctum');
+  Route::get('/{event}/request/list', [EventRequest::class, 'index'])->withoutMiddleware('auth:sanctum');
   Route::post('/', [Event::class, 'add']);
   Route::post('/request', [EventRequest::class, 'add']);
   Route::post('/request/{eventReq}/accept', [EventRequest::class, 'acceptReq']);
