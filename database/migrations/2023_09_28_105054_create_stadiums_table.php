@@ -23,7 +23,7 @@ class CreateStadiumsTable extends Migration
         $table->double('location_long');
         $table->double('location_lat');
         $table->string('address')->nullable();
-        $table->string('timings')->nullable();
+        $table->longText('timings')->nullable();
         $table->unsignedBigInteger('owner_user_id');
 
         $table->string('available_sports')->nullable();
