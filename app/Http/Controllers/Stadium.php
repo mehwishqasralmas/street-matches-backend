@@ -8,11 +8,14 @@ use App\Models\image as ImageModel;
 use App\Http\Controllers\StadiumImg as StadiumdImgController;
 class Stadium extends Controller
 {
-    public function index(Request $req, $onlyOwn = null) {
+    public function index(Request $req, $onlyOwn = null, $userId = null) {
         $onlyOwn = $onlyOwn ?? $req->query("onlyOwn");
         $data = StadiumModel::query()->select();
+        $userId = $userId ?? $req->query('userId');
 
-        if(!empty($onlyOwn) && !empty($req->user('sanctum'))) {
+        if(!empty($userId))
+          $data = $data->where('owner_user_id', $userId);
+        else if(!empty($onlyOwn) && !empty($req->user('sanctum'))) {
           $curUserId = $req->user('sanctum')->id;
           $data = $data->where('owner_user_id', $curUserId);
         }

@@ -46,10 +46,11 @@ class Mtch extends Controller
         "DATE(schedule_time) $daysOffsetOp DATE_ADD(CURRENT_DATE(), INTERVAL $daysOffset DAY)"
       );
 
-    if(!empty($onlyOwn) && !empty($req->user('sanctum')))
-      $matches = $matches->where("creator_user_id", $req->user('sanctum')->id);
-    else if(!empty($userId))
+    if(!empty($userId))
       $matches = $matches->where('creator_user_id', $userId);
+    else if(!empty($onlyOwn) && !empty($req->user('sanctum')))
+      $matches = $matches->where("creator_user_id", $req->user('sanctum')->id);
+
 
 
     $matches = $matches->orderByDesc('schedule_time')->limit($limit)->get();

@@ -21,10 +21,11 @@ class Team extends Controller
     $userId = $userId ?? $req->query('userId');
 
     $teams = TeamModel::query()->select();
-    if(!empty($onlyOwn) && !empty($req->user('sanctum')))
-      $teams = $teams->where('creator_user_id', $req->user('sanctum')->id);
-    else if(!empty($userId))
+    if(!empty($userId))
       $teams = $teams->where('creator_user_id', $userId);
+    else if(!empty($onlyOwn) && !empty($req->user('sanctum')))
+      $teams = $teams->where('creator_user_id', $req->user('sanctum')->id);
+
 
     return $teams->limit($limit)->get();
   }

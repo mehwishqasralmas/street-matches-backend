@@ -39,10 +39,12 @@ class Event extends Controller
       ->leftJoin('images AS user_img', 'users.img_id', '=', 'user_img.id')
       ->orderByDesc('events.created_at');
 
-    if(!empty($onlyOwn) && !empty($req->user('sanctum')))
-      $events = $events->where('events.creator_user_id', $req->user('sanctum')->id);
-    else if(!empty($userId))
+
+    if(!empty($userId))
       $events = $events->where('events.creator_user_id', $userId);
+    else if(!empty($onlyOwn) && !empty($req->user('sanctum')))
+      $events = $events->where('events.creator_user_id', $req->user('sanctum')->id);
+
 
     $events = $events->limit($limit)->get();
 
